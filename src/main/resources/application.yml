@@ -7,5 +7,19 @@ resilience4j:
         slow-call-duration-threshold: 2s
         minimum-number-of-calls: 5
         sliding-window-size: 10
-        wait-duration-in-open-state: 5s
+        wait-duration-in-open-state: 15s
         permitted-number-of-calls-in-half-open-state: 3
+
+    instances:
+      productService:
+        base-config: default
+
+  retry:
+    configs:
+      default:
+        max-attempts: 1
+        wait-duration: 1000
+
+    instances:
+      productService:
+        base-config: default

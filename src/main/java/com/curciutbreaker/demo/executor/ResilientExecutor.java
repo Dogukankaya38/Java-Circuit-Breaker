@@ -5,6 +5,7 @@ import com.curciutbreaker.demo.helper.RunnableDecorator;
 import com.curciutbreaker.demo.helper.SupplierDecorator;
 import io.github.resilience4j.bulkhead.Bulkhead;
 import io.github.resilience4j.bulkhead.BulkheadRegistry;
+import io.github.resilience4j.circuitbreaker.CallNotPermittedException;
 import io.github.resilience4j.circuitbreaker.CircuitBreaker;
 import io.github.resilience4j.circuitbreaker.CircuitBreakerRegistry;
 import io.github.resilience4j.ratelimiter.RateLimiter;
@@ -12,12 +13,14 @@ import io.github.resilience4j.ratelimiter.RateLimiterRegistry;
 import io.github.resilience4j.retry.Retry;
 import io.github.resilience4j.retry.RetryRegistry;
 import io.vavr.control.Try;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import java.util.concurrent.Callable;
 import java.util.function.Supplier;
 
 @Component
+@Slf4j
 public class ResilientExecutor {
 
     private final CircuitBreakerRegistry circuitBreakerRegistry;
